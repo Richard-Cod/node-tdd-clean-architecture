@@ -3,14 +3,17 @@ const app = express()
 const port = 3000
 
 app.use(express.json())
-import { NextFunction, Request, Response } from 'express';
-import projectDependencies from '../clean/domain/config/projectdependencies';
 
+import { NextFunction, Request, Response } from 'express';
+import ProjectDependencies from '../clean/domain/config/projectdependencies';
 import UserController from '../clean/framework/controller/users';
+
+
+const projectDependencies = new ProjectDependencies()
 const userController = UserController(projectDependencies)
 
 
-
+app.get('/api/users', userController.getAllUsers)
 app.post('/api/users', userController.createUser)
 
 
